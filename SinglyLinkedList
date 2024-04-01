@@ -1,0 +1,301 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head = NULL;
+struct node *tmp, *pretmp;
+void insertAtbeg();
+void insertAtend();
+void insertAfter();
+void insertBefore();
+void deleteAtend();
+void deleteAtbeg();
+void deleteNode();
+void displaylist();
+void main()
+{
+    int choice;
+    char op;
+    printf("Do you want to perform an operation(Y/N):");
+    scanf(" %c", &op);
+
+    printf("MENU\n");
+    printf("1.Deletion at the begining\n");
+    printf("2.Deletion at the end\n");
+    printf("3.Insertion at the begining\n");
+    printf("4.Insertion at the end\n");
+    printf("5.Insertion after a node\n");
+    printf("6.Insertion before a node\n");
+    printf("7.Display the linked list\n");
+
+    while(op == 'Y' || op == 'y')
+    {
+        printf("Enter your choice:");
+        scanf(" %d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+            deleteAtbeg();
+            break;
+
+            case 2:
+            deleteAtend();
+            break;
+
+            case 3:
+            insertAtbeg();
+            break;
+
+            case 4:
+            insertAtend();
+            break;
+
+            case 5:
+            insertAfter();
+            break;
+
+            case 6:
+            insertBefore();
+            break;
+
+            case 7:
+            displaylist();
+            break;
+            
+
+            default:
+            printf("Invalid Input\n");
+            break;
+        }
+        printf("Do you want to again perform an operation(Y/N):");
+        scanf(" %c", &op);
+    }
+}
+
+void deleteAtbeg()
+{
+    if(head == NULL)
+    {
+        printf("Linked list empty\n");
+    }
+    else
+    {
+        struct node *newnode = (struct node*)(malloc(sizeof(struct node)));
+
+        tmp = head;
+        head = tmp->next;
+        free(tmp);
+    }
+}
+
+void deleteAtend()
+{
+    if(head == NULL)
+    {
+        printf("Linked list empty\n");
+    }
+    else
+    {
+        tmp = head;
+        while(tmp->next != NULL)
+        {
+            pretmp = tmp;
+            tmp = tmp->next;
+        }
+        pretmp->next = NULL;
+        free(tmp);
+    }
+}
+
+void insertAtbeg()
+{
+    struct node* newnode = (struct node*)(malloc(sizeof(struct node)));
+
+    if(newnode == NULL)
+    {
+        printf("Storage full\n");
+    }
+    else
+    {
+        printf("Enter the data of node:");
+        scanf("%d", &newnode->data);
+
+        if(head == NULL)
+        {
+            newnode->next = NULL;
+            head = newnode;
+        }
+        else
+        {
+            newnode->next = head;
+            head = newnode;
+        }
+    }
+}
+
+void insertAtend()
+{
+    struct node* newnode = (struct node*)(malloc(sizeof(struct node)));
+
+    if(newnode == NULL)
+    {
+        printf("Storage full\n");
+    }
+    else
+    {
+        printf("Enter the data of node:");
+        scanf("%d", &newnode->data);
+
+        if(head == NULL)
+        {
+            newnode->next = NULL;
+            head = newnode;
+        }
+        else
+        {
+            tmp = head;
+
+            while(tmp->next != NULL)
+            {
+                tmp = tmp->next;
+            }
+
+            newnode->next = NULL;
+            tmp->next = newnode;
+        }
+    }
+}
+
+void insertAfter()
+{
+    struct node *newnode = (struct node*)(malloc(sizeof(struct node)));
+
+    if(newnode == NULL)
+    {
+        printf("Storage full\n");
+    }
+    else
+    {
+       if(head == NULL)
+        { 
+            printf("Enter the data of node:");
+            scanf("%d", &newnode->data);
+            newnode->next = NULL;
+            head = newnode;
+        }
+        else
+        {
+            int loc, count = 0, i = 1;
+
+            tmp = head;
+            while(tmp != NULL)
+            {
+                tmp = tmp->next;
+                count = count + 1;
+            }
+
+            printf("Enter the location after which you want to insert a node:");
+            scanf("%d", &loc);
+
+            if(loc < 1 || loc > count)
+            {
+                printf("Invalid location\n");
+            }
+            else
+            {
+                tmp = head;
+
+                while(i < loc)
+                {
+                    tmp = tmp->next;
+                    i++;
+                }
+
+                printf("Enter the data of node:");
+                scanf("%d", &newnode->data);
+
+                newnode->next = tmp->next;
+                tmp->next = newnode;
+            }
+        }
+    }
+}
+
+void insertBefore()
+{
+    struct node *newnode = (struct node*)(malloc(sizeof(struct node)));
+
+    if(newnode == NULL)
+    {
+        printf("Storage full\n");
+    }
+    else
+    {
+       if(head == NULL)
+        { 
+            printf("Enter the data of node:");
+            scanf("%d", &newnode->data);
+            newnode->next = NULL;
+            head = newnode;
+        }
+        else
+        {
+            int loc, count = 0, i = 1;
+
+            tmp = head;
+            while(tmp != NULL)
+            {
+                tmp = tmp->next;
+                count = count + 1;
+            }
+
+            printf("Enter the location before which you want to insert:");
+            scanf("%d", &loc);
+
+            if(loc < 1 || loc > count)
+            {
+                printf("Invalid location\n");
+            }
+            else
+            {
+                tmp = head;
+
+                while(i < loc)
+                {
+                    pretmp = tmp;
+                    tmp = tmp->next;
+                    i++;
+                }
+
+                printf("Enter the data of node:");
+                scanf("%d", &newnode->data);
+
+                newnode->next = tmp;
+                pretmp->next = newnode;
+            }
+        }
+    }
+}
+
+void displaylist()
+{
+    if(head == NULL)
+    {
+        printf("Linked list empty\n");
+    }
+    else
+    {
+        tmp = head;
+
+        while(tmp != 0)
+        {
+            printf("Data = %d\n", tmp->data);
+            tmp = tmp->next;
+        }
+    }
+}

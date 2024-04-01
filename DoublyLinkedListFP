@@ -1,0 +1,340 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+    struct node *prev;
+};
+
+struct node *head = NULL, *tail, *tmp, *pretmp, *posttemp;
+void createList();
+void insertAtbeg();
+void insertAtend();
+void insertAfter();
+void insertBefore();
+void deleteAtbeg();
+void deleteAtend();
+void display();
+void count();
+
+int main()
+{
+    int choice;
+    printf("MENU\n");
+    printf("1.CREATE A LINKED LIST\n");
+    printf("2.INSERTION AT THE BEGINING\n");
+    printf("3.INSERTION AT THE END\n");
+    printf("4.INSERTION AFTER A NODE\n");
+    printf("5.INSERTION BEFORE A NODE\n");
+    printf("6.DELETION AT THE BEGINING\n");
+    printf("7.DELETION AT THE END\n");
+    printf("8.DISPLAY THE LINKED LIST\n");
+    printf("9.EXIT\n");
+
+    do
+    {
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+            createList();
+            break;
+
+            case 2:
+            insertAtbeg();
+            break;
+
+            case 3:
+            insertAtend();
+            break;
+
+            case 4:
+            insertAfter();
+            break;
+
+            case 5:
+            insertBefore();
+            break;
+
+            case 6:
+            deleteAtbeg();
+            break;
+
+            case 7:
+            deleteAtend();
+            break;
+
+            case 8:
+            display();
+            break;
+
+            default:
+            printf("Invalid input\n");
+            break;
+        }
+    }
+    while(choice != 9);
+}
+
+
+void createList()
+{
+    struct node *newnode = (struct node*)(malloc(sizeof(struct node)));
+
+    if(newnode == NULL)
+    {
+        printf("Space not avaialble\n");
+    }
+    else
+    {
+        printf("Enter the data of node:");
+        scanf("%d", &newnode->data);
+        newnode->next = NULL;
+        newnode->prev = NULL;
+        if(head == NULL)
+        {
+            head = tail = newnode;
+        }
+        else
+        {
+            tail->next = newnode;
+            newnode->prev = tail;
+            tail = newnode;
+        }
+    }
+}
+
+void insertAtbeg()
+{
+    struct node *newnode = (struct node*)(malloc(sizeof(struct node)));
+
+    if(newnode == NULL)
+    {
+        printf("Storage not available\n");
+    }
+    else
+    {
+        printf("Enter the data of the node:");
+        scanf("%d", &newnode->data);
+        newnode->next = NULL;
+        newnode->prev = NULL;
+        if(head == NULL) // Linked list empty
+        {
+            head = newnode;
+            printf("Node inserted\n");
+        }
+        else
+        {
+            newnode->next = head;
+            head->prev = newnode;
+            head = newnode;
+            printf("Node Inserted\n");
+        }
+    }
+}
+
+void insertAtend()
+{
+    struct node *newnode = (struct node*)(malloc(sizeof(struct node)));
+
+    if(newnode == NULL)
+    {
+        printf("Storage not available\n");
+    }
+    else
+    {
+        printf("Enter the data of node:");
+        scanf("%d", &newnode->data);
+        newnode->next = NULL;
+        newnode->prev = NULL;
+
+        if(head == NULL)
+        {
+            head = newnode;
+            printf("Node inserted at the end\n");
+        }
+        else
+        {
+            tail->next = newnode;
+            newnode->prev = tail;
+            tail = newnode;
+            printf("Node inserted at the end\n");
+        }
+    }
+}
+
+void insertAfter()
+{
+    struct  node *newnode = (struct node*)malloc(sizeof(struct node));
+
+    if(newnode == NULL)
+    {
+        printf("Storage not available\n");
+    }
+
+    else
+    {
+        if(head == NULL)
+        {
+            printf("Enter the data of the node:");
+            scanf("%d", &newnode->data);
+            newnode->next = NULL;
+            newnode->prev = NULL;
+            head = newnode;
+            printf("Node inserted at the 1st location\n");
+        }
+
+        else
+        {
+           int loc, count = 0, i = 1;
+
+           printf("After which node you want to insert:");
+           scanf("%d", &loc);
+        
+           tmp = head;
+           while(tmp != NULL)
+           {
+                tmp = tmp->next;
+                count++;
+           }
+
+            if(loc < 1 || loc > count)
+            printf("Invalid location\n");
+       
+            else
+            {
+  
+                tmp = head;
+                while(i < loc)
+                {
+                    posttemp = tmp;
+                    tmp = tmp->next;
+                    i++;
+                }
+
+                printf("Enter the data of node:");
+                scanf("%d", &newnode->data);
+                newnode->next = tmp->next;
+                tmp->next = newnode;
+                newnode->prev = tmp;
+                posttemp->prev = newnode;
+                printf("Node inserted after location %d\n", loc);
+            }
+        }
+    }
+}
+void insertBefore()
+{
+    struct node *newnode = (struct node*)(malloc(sizeof(struct node)));
+
+    if(newnode == NULL)
+    {
+        printf("Storage not available\n");
+    }
+
+    else
+    {
+        if(head == NULL)
+        {
+            printf("Enter the data of node:");
+            scanf("%d", &newnode->data);
+            newnode->next = NULL;
+            newnode->prev = NULL;
+            head = newnode;
+            printf("Node inserted at the 1st location\n");
+        }
+
+        else
+        {
+            int count = 0, loc, i = 1;
+            tmp = head;
+            while(tmp != NULL)
+            {
+                tmp = tmp->next;
+                count++;
+            }
+
+            printf("Before which location you want to insert:");
+            scanf("%d", &loc);
+
+            if(loc < 1 || loc > count)
+            printf("Invalid location\n");
+            
+            else
+            {
+                tmp = head;
+                while(i < loc)
+                {
+                    pretmp = tmp;
+                    tmp = tmp->next;
+                    i++;
+                }
+
+                printf("Enter the data of the node");
+                scanf("%d", &newnode->data);
+                newnode->next = tmp;
+                tmp->prev = newnode;
+                pretmp->next = newnode;
+                newnode->prev = pretmp;
+                printf("Node inserted before location %d\n", loc);
+
+            }
+        }
+    }
+}
+
+void deleteAtbeg()
+{
+    if(head == NULL)
+    {
+        printf("Linked list empty\n");
+    }
+    else
+    {
+        struct node *newnode = (struct node*)(malloc(sizeof(struct node)));
+
+        tmp = head;
+        head = tmp->next;
+        free(tmp);
+        printf("1st node deleted\n");
+    }
+}
+
+void deleteAtend()
+{
+    if(head == NULL)
+    {
+        printf("Linked list empty\n");
+    }
+
+    else
+    {
+        tmp = head;
+        while(tmp->next != NULL)
+        {
+            pretmp = tmp;
+            tmp = tmp->next;
+        }
+
+        pretmp->next = NULL;
+        free(tmp);
+        printf("Last node deleted\n");
+    }
+}
+
+void display()
+{
+    int count = 0;
+    tmp = head;
+    while(tmp != NULL)
+    {
+        printf("Data = %d\n", tmp->data);
+        tmp = tmp->next;
+        count++;
+    }
+    printf("Total number of nodes = %d", count);
+}

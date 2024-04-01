@@ -1,0 +1,140 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+void push();
+int pop();
+int peek();
+void display();
+
+typedef struct node
+{
+    int data;
+    struct node *next;
+}node;
+node *top = NULL;
+node *tmp;
+
+void main()
+{
+    int choice, value;
+
+    printf("MENU\n");
+    printf("1.PUSH A NODE\n");
+    printf("2.POP A NODE\n");
+    printf("3.PEEK\n");
+    printf("4.DISPLAY LINKED STACK\n");
+    printf("5.EXIT\n");
+
+    do
+    {
+        printf("Enter your choice:");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+            push();
+            break;
+
+            case 2:
+            value = pop();
+            if(value != -1)
+            printf("Value poped = %d\n", value);
+            break;
+
+            case 3:
+            value = peek();
+            printf("Top value = %d\n", value);
+            break;
+
+            case 4:
+            display();
+            break;
+        }
+    }
+    while(choice != 5);
+}
+
+void push()
+{
+    node *newnode = (node*)(malloc(sizeof(node)));
+
+    if(newnode == NULL)
+    {
+        printf("Storage full\n");
+    }
+    else
+    {
+        printf("Enter the data of node:");
+        scanf("%d", &newnode->data);
+
+        if(top == NULL)
+        {
+            newnode->next = NULL;
+            top = newnode;
+        }
+        else
+        {
+            newnode->next = top;
+            top = newnode;
+        }
+    }
+}
+
+int pop()
+{
+    int val;
+    if(top == NULL)
+    {
+        printf("UNDERFLOW\n");
+        return -1;
+    }
+    else if(top->next == NULL)
+    {
+        val = top->data;
+        tmp = top;
+        top = NULL;
+        free(tmp);
+
+        return val;
+    }
+    else
+    {
+        val = top->data;
+        tmp = top;
+        top = top->next;
+        free(tmp);
+
+        return val;
+    }
+}
+
+int peek()
+{
+    if(top == NULL)
+    {
+        printf("Stack empty\n");
+    }
+    else
+    {
+        int val;
+
+        val = top->data;
+        return val;
+    }
+}
+
+void display()
+{
+    if(top == NULL)
+    {
+        printf("Linked stack empty\n");
+    }
+    tmp = top;
+
+    while(tmp != NULL)
+    {
+        printf("Data = %d\n", tmp->data);
+        tmp = tmp->next;
+    }
+}

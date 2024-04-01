@@ -1,0 +1,111 @@
+#include<stdio.h>
+
+void push(int stack[], int, int);
+int pop(int stack[], int);
+int peek(int satck[], int);
+void display(int stack[], int);
+
+int main()
+{
+    int choice, value, top = -1;
+    int stack[MAX];
+
+    printf("MENU\n");
+    printf("1.PUSH\n");
+    printf("2.POP\n");
+    printf("3.PEEK\n");
+    printf("4.DISPLAY\n");
+    printf("5.EXIT\n");
+
+    do 
+    {
+        printf("Enter your choice:");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+            printf("Enter the value to be pushed:");
+            scanf("%d", &value);
+            push(stack, value, top);
+            break;
+
+            case 2:
+            value = pop(stack, top);
+            if(value != -1)
+            printf("Value poped = %d\n", value);
+            break;
+
+            case 3:
+            value = peek(stack, top);
+            if(value == -1)
+            printf("Stack empty\n");
+            printf("Top value = %d\n", value);
+            break;
+            
+            case 4:
+            display(stack, top);
+            break;
+
+        }
+    }
+    while(choice != 5);
+}
+
+void push(int stack[], int value, int top)
+{
+    if(top == MAX - 1)
+    {
+        printf("STACK OVERFLOW\n");
+    }
+    else
+    {
+        top++;
+        stack[top] = value;
+    }
+}
+
+int pop(int stack[], int top)
+{
+    int val;
+    if(top == -1)
+    {
+        printf("UNDERFLOW\n");
+        return -1;
+    }
+    else
+    {
+        val = stack[top];
+        top--;
+    }
+    return val;
+}
+
+int peek(int stack[], int top)
+{
+    int val;
+    if(top == -1)
+    {
+        return -1;
+    }
+    else
+    {
+        val = stack[top];
+        return val;
+    }
+}
+
+void display(int stack[], int top)
+{
+    if(top == -1)
+    {
+        printf("UNDERFLOW\n");
+    }
+    else
+    {
+        for(int i = 0; i <= top; i++)
+        {
+            printf("Element at index %d = %d\n", i, stack[i]);
+        }
+    }
+}

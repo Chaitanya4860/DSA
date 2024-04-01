@@ -1,0 +1,131 @@
+#include<stdio.h>
+void boundarycheck(int ub, int lb, int size, int A[size]);
+void insertAtloc(int ub, int size, int A[size]);
+void insertAtend(int ub, int size, int A[size]);
+void displayArray(int ub, int size, int A[size]);
+
+int main()
+{
+    int size;
+
+    printf("Enter the size of array:");
+    scanf("%d", &size);
+
+    int A[size], ub, lb, n, data;
+
+    printf("Enter the number of elements you want in array:");
+    scanf("%d", &n);
+
+    printf("Enter the elements of the array:\n");
+    for(int i=0; i<n; i++)
+    {
+        scanf("%d", &A[i]);
+        ub++;
+    }
+
+    int choice;
+    printf("MENU\n");
+    printf("1.Insertion at a particular location\n");
+    printf("2.Insertion at the end\n");
+    printf("3.Display the array\n");
+    printf("4.Exit\n");
+
+    printf("\nEnter your choice:");
+    scanf("%d", &choice);
+
+    do
+    {
+        switch(choice)
+        {
+            case 1:
+            boundarycheck(ub, lb, size, A);
+            insertAtloc(ub, size, A);
+            break;
+
+            case 2:
+            boundarycheck(ub, lb, size, A);
+            insertAtend(ub, size, A);
+            break;
+
+            case 3:
+            displayArray(ub, size, A);
+            break;
+
+            default:
+            printf("Invalid input\n");
+
+        }
+        printf("Enter your choice:");
+        scanf("%d", &choice);
+    }
+    while(choice != 4);
+
+
+}
+
+void boundarycheck(int ub, int lb, int size, int A[])
+{
+    if(ub == size - 1)
+    {
+        printf("Overflow\n");
+    }
+    else if(ub < 0)
+    {
+        int data;
+        printf("Enter the data to be inserted:");
+        scanf("%d", &data);
+
+        printf("Array was empty\n");
+        ub = lb = 0;
+        A[ub] = data;
+        printf("Data inserted at the begining\n");
+    }
+
+}
+
+void insertAtloc(int ub, int size, int A[])
+{
+    int loc, data;
+
+    printf("Enter the location:");
+    scanf(" %d", &loc);
+    
+    if(loc < 0 || loc > size)
+    printf("Invalid location\n");
+    
+    else
+    {
+        int k;
+        
+        for(k=ub; k>=loc-1; k--)
+        {
+            A[k + 1] = A[k];
+        }
+
+        printf("Enter the data to be inserted:");
+        scanf(" %d", &data);
+
+        A[loc-1] = data;
+        ub++;
+        printf("Data inserted at location %d\n", loc);
+    }
+}
+
+void insertAtend(int ub, int size, int A[])
+{
+    int data;
+    printf("Enter the data to be inserted:");
+    scanf("%d", &data);
+
+    ub++;
+    A[ub] = data;
+    printf("Data inserted at the end\n");
+}
+
+void displayArray(int ub, int size, int A[])
+{
+    for(int n = 0; n < size; n++)
+    {
+        printf("Data at index %d = %d\n", n, A[n]);
+    }
+}

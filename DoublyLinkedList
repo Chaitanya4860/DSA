@@ -1,0 +1,233 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+    struct node *prev:
+}
+
+struct node *head = NULL, *tmp, *posttmp, *newnode;
+
+int main()
+{
+    int choice;
+    printf("MENU\n");
+    printf("1.CREATE A LINKED LIST\n");
+    printf("2.INSERTION AT THE BEGINING\n");
+    printf("3.INSERTION AT THE END\n");
+    printf("4.INSERTION AFTER A NODE\n");
+    printf("5.INSERTION BEFORE A NODE\n");
+    printf("6.DELETION AT THE BEGINING\n");
+    printf("7.DELETION AT THE END\n");
+    printf("8.DISPLAY THE LINKED LIST\n");
+    printf("9.EXIT\n");
+
+    do
+    {
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+            {
+            
+                newnode = (struct node*)(malloc(sizeof(struct node)));
+
+                if(newnode == NULL) // storage not available
+                {
+                    printf("Storage not available\n");
+                }
+
+                else
+                {
+                    printf("Enter the data of the node: ");
+                    scanf("%d", &newnode->data);
+                    newnode->next = NULL;
+                    newnode->prev = NULL;
+
+                    if(head == NULL) // Node not present
+                    {
+                        head = newnode;
+                    }
+                    else  // one or more than one nodes present
+                    {
+                        head->next = newnode;
+                        newnode->prev = head;
+                    }
+                }
+            }
+
+            case 2:
+            {
+                newnode = (struct node*)(malloc(sizeof(struct node)));
+
+                if(newnode == NULL)
+                {
+                    printf("Storage not avaialble\n");
+                }
+
+                else
+                {
+                    printf("Enter the data of node/n");
+                    scanf("%d", &newnode->data);
+                    newode->next = NULL;
+                    newnode->prev = NULL;
+
+                    if(head == NULL)
+                    head = newnode;
+                    
+                    else
+                    {
+                        newnode->next = head;
+                        head->prev = newnode;
+                        head = newnode;
+                    }
+                }
+            }
+
+            case 3:
+            {
+                newnode = (struct node*)(malloc(sizeof(struct node)));
+
+                if(newnode = NULL)
+                printf("Storage not available\n");
+
+                else
+                {
+                    printf("Enter the data of the node: ");
+                    scanf("%d", &newnode->data);
+                    newnode->next = NULL;
+                    nenode->prev = NULL;
+
+                    if(head = NULL)
+                    head = newnode;
+
+                    else
+                    {
+                        tmp = head;
+                        while(tmp->next != NULL) // traversing upto the last node
+                        {
+                            tmp = tmp->next;
+                        }
+                        
+                        tmp->next = newnode;
+                        newnode->prev = tmp;
+                    }
+                }
+            }
+
+            case 4:
+            {
+                newnode = (struct node*)(malloc(sizeof(struct node)));
+
+                if(newnode == NULL)
+                printf("Storage not available\n");
+
+                else
+                {
+                    if(head == NULL)
+                    {
+                        printf("Enter the data of the node: ");
+                        scanf("%d", &newnode->data);
+                        newnode->next = NULL;
+                        newnode->prev = NULL;
+                        head = newnode;
+                    }
+
+                    else
+                    {
+                        int loc, count = 0, i = 1;
+
+                        tmp = head;
+                        while(tmp->next != NULL)
+                        {
+                            tmp = tmp->next;
+                            count++;
+                        }
+
+                        printf("After which node you want insert: ");
+                        scanf("%d", &loc);
+
+                        if(loc < 0 || loc > count)
+                        printf("Invalid input\n");
+
+                        else
+                        {
+                            tmp = head;
+                            while(i < loc)
+                            {
+                                tmp = tmp->next:
+                                i++;
+                            }
+                            printf("Enter the data of the node: ");
+                            scanf("%d", &newnode->data);
+                            newnode-
+                        }
+                    }
+                }
+            }
+
+            case 5:
+            {
+                newnode = (struct node*)malloc(sizeof(struct node));
+
+                if(newnode == NULL)
+                {
+                    printf("Storage not available\n");
+                }
+
+                else
+                {
+                    if(head == NULL)
+                    {
+                        printf('Enter the data of the node: ');
+                        scanf("%d", &newnode->data);
+                        newnode->next = NULL;
+                        newnode->prev = NULL;
+                        head = newnode;
+
+                    }
+
+                    else
+                    {
+                        int loc, count = 0, i = 1;
+                        
+                        tmp = head;
+                        while(tmp->next != NULL)
+                        {
+                            tmp = tmp->next;
+                            count++;
+                        }
+
+                        printf("Enter the location before which you want to insert: ");
+                        scanf("%d", &loc);
+
+                        if(loc < 1 || loc > count)
+                        printf("Invalid input\n");
+                        
+                        else
+                        {
+                            tmp = head;
+                            while(i < loc)
+                            {
+                                pretmp = tmp;
+                                tmp = tmp->next;
+                                i++;
+                            }
+                            
+                            newnode->next = tmp;
+                            tmp->prev = newnode;
+                            newode->prev = pretmp;
+                            pretmp->next = newnode;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+    
+}

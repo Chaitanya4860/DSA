@@ -1,0 +1,40 @@
+#include<stdio.h>
+int main()
+{
+    int size,temp,lb=0,ub=-1,loc,value;
+
+    printf("Enter the size of the array:");
+    scanf("%d", &size);
+
+    int a[size];
+
+    printf("Enter the elements of the array:");
+    for(int i=0; i<size; i++)
+    {
+        scanf("%d", &a[i]);
+        ub = ub+1;
+    }
+
+    printf("Enter the value to searched:");
+    scanf("%d", &value);
+
+    temp = lb;
+     while(temp<=ub)
+    {
+   
+        if(a[temp] == value)
+        {   loc = temp;
+            printf("Search Successful\n");
+            printf("Element found at index: %d", loc);
+            break;
+        }
+
+        temp = temp + 1;
+    
+        if(temp>ub)
+        { 
+            printf("Search Unsuccesful\n");
+            printf("Element does not exists");
+        }
+    }
+}
